@@ -13,6 +13,7 @@
   "author": {
     "name": "Olcan Askar"
   },
+  "repository": "https://github.com/olcanaskar/antigravity-context-meter",
   "license": "MIT",
   "keywords": [
     "context",

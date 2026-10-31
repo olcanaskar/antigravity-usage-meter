@@ -1,5 +1,7 @@
 # Context Meter
 
+**Repository:** [github.com/olcanaskar/antigravity-context-meter](https://github.com/olcanaskar/antigravity-context-meter)
+
 A plugin for Antigravity 2.x that shows the active conversation's context-window
 token usage and weekly usage limits both in the **chat header** and in the
 **side panel**. Values come from Antigravity's own language server; the plugin
