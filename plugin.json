@@ -1,0 +1,23 @@
+{
+  "$schema": "https://antigravity.google/schemas/v1/plugin.json",
+  "name": "context-meter",
+  "displayName": "Context Meter",
+  "version": "1.0.0",
+  "description": "Shows live context-window token usage and weekly usage limits for the active Antigravity conversation in the chat header and side panel.",
+  "logo": "assets/logo.svg",
+  "suggestedPrompts": [
+    "Open the Context Meter panel",
+    "How full is the context in this conversation?",
+    "Show the context usage history"
+  ],
+  "author": {
+    "name": "Olcan Askar"
+  },
+  "license": "MIT",
+  "keywords": [
+    "context",
+    "tokens",
+    "usage",
+    "monitor"
+  ]
+}
