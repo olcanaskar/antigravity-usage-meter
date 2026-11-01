@@ -67,13 +67,16 @@ pane).
 
 ## Installation
 
-Install the plugin at:
+Download the latest packaged release from the
+[Releases page](https://github.com/olcanaskar/antigravity-usage-meter/releases/latest)
+and extract it into:
 
 ```text
-~/.gemini/config/plugins/usage-meter/
+~/.gemini/config/plugins/
 ```
 
-Enable it by adding these entries to `~/.gemini/config/config.json`:
+This creates `~/.gemini/config/plugins/usage-meter/`. Enable it by adding these
+entries to `~/.gemini/config/config.json`:
 
 ```json
 {
