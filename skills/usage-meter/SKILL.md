@@ -1,13 +1,13 @@
 ---
-name: context-meter
+name: usage-meter
 description: >-
   Show the live context-window token usage for the current Antigravity
   conversation. Use when the user asks how full the context is, how many tokens
   are used or left, whether they are close to the context limit, or asks to open
-  the context meter panel. Also use for /context-meter.
+  the Usage Meter panel. Also use for /usage-meter.
 ---
 
-# Context Meter
+# Usage Meter
 
 This plugin ships a UI extension: a sidecar-backed panel that reads
 Antigravity's own context-window estimate and model-quota summary for the active
@@ -17,7 +17,7 @@ conversation.
 
 When the user asks for the meter, emit this pill on its own line:
 
-[Context Meter](sidecar://context-meter/context-meter/)
+[Usage Meter](sidecar://usage-meter/usage-meter/)
 
 Clicking it toggles the panel in the auxiliary side pane. The panel refreshes
 every 4 seconds. It follows the conversation passed by the host; if it is opened
@@ -29,7 +29,7 @@ of the ⋮ menu. It follows the active `/c/<conversationId>` URL and refreshes
 every 4 seconds. It shows the context percentage and the active model group's
 weekly remaining percentage (`7d 91.7% left`); the tooltip and panel have the full
 breakdown. Clicking the badge toggles the auxiliary pane: it opens the pane and
-focuses the Context Meter tab, and clicking it again closes the pane.
+focuses the Usage Meter tab, and clicking it again closes the pane.
 If the user asks where the percentage is, mention both the header badge and the
 panel. The badge is an unofficial CDP injection; if it is missing after an
 Antigravity update, the panel is the reliable fallback.

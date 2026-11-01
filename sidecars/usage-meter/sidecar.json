@@ -2,19 +2,19 @@
   "command": "node",
   "args": ["main.mjs"],
   "restart_policy": "always",
-  "display_name": "Context Meter",
+  "display_name": "Usage Meter",
   "description": "Shows live context-window token usage and weekly usage limits for the active conversation.",
   "env": {
-    "CONTEXT_METER_HEADER": "1"
+    "USAGE_METER_HEADER": "1"
   },
   "has_web_ui": true,
   "ui_config": {
-    "display_name": "Context Meter",
+    "display_name": "Usage Meter",
     "views": [
       {
         "path": "/",
         "entrypoint": "SIDECAR_UI_ENTRYPOINT_AUX_PANE",
-        "title": "Context Meter"
+        "title": "Usage Meter"
       }
     ]
   }

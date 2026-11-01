@@ -1,5 +1,5 @@
 /**
- * Header widget for the Context Meter.
+ * Header widget for the Usage Meter.
  *
  * Antigravity does not expose a chat-header extension point, so this module
  * injects a small, fixed-position pill into the running app's renderer over its
@@ -10,7 +10,7 @@
  * This is an unofficial, best-effort integration:
  *  - If CDP is unavailable, the sidecar panel still works.
  *  - The widget is re-injected automatically if the app re-renders or reloads.
- *  - Set CONTEXT_METER_HEADER=0 in sidecar.json env to disable it.
+ *  - Set USAGE_METER_HEADER=0 in sidecar.json env to disable it.
  */
 
 import fs from 'node:fs';
@@ -21,7 +21,7 @@ import path from 'node:path';
 const POLL_INTERVAL_MS = 4000;
 const COMMAND_TIMEOUT_MS = 3500;
 const WIDGET_ID = 'agcm-header';
-const WIDGET_VERSION = '9';
+const WIDGET_VERSION = '10';
 const RING_CIRCUMFERENCE = 94.25;
 
 const DEVTOOLS_FILE_CANDIDATES = [
@@ -168,7 +168,7 @@ function widgetData(context, quota) {
     }
   }
 
-  tooltip.push('Click to open or close the Context Meter panel.');
+  tooltip.push('Click to open or close the Usage Meter panel.');
 
   return {
     percent,
@@ -179,7 +179,7 @@ function widgetData(context, quota) {
     detailColor: weeklyBucket ? weeklyColor : '',
     color,
     tooltip: tooltip.join('\n'),
-    label: 'Context',
+    label: 'Usage',
   };
 }
 
@@ -231,7 +231,7 @@ function widgetScript(data) {
       '    stroke-linecap="round" stroke-dasharray="' + CIRC + '" stroke-dashoffset="' + CIRC + '"',
       '    transform="rotate(-90 18 18)"></circle>',
       '</svg>',
-      '<span data-agcm="label" style="color:#9ca3af">Context</span>',
+      '<span data-agcm="label" style="color:#9ca3af">Usage</span>',
       '<span data-agcm="pct" style="font-weight:600;color:#e5e7eb">%—</span>',
       '<span data-agcm="sep" style="color:#6b7280">·</span>',
       '<span data-agcm="detail" style="display:inline-flex;align-items:baseline;gap:4px;color:#9ca3af">',
@@ -255,7 +255,7 @@ function widgetScript(data) {
 
     host.setAttribute('role', 'button');
     host.setAttribute('tabindex', '0');
-    host.setAttribute('aria-label', 'Toggle the Context Meter panel');
+    host.setAttribute('aria-label', 'Toggle the Usage Meter panel');
 
     const isDarkMode = () =>
       document.body.classList.contains('dark') ||
@@ -280,7 +280,7 @@ function widgetScript(data) {
 
       toggle.click();
       setTimeout(() => {
-        const tabs = [...document.querySelectorAll('button[title="Context Meter"]')];
+        const tabs = [...document.querySelectorAll('button[title="Usage Meter"]')];
         const tab = tabs.find((el) => el.getBoundingClientRect().width > 0) || tabs[0];
         if (tab) tab.click();
       }, 600);
@@ -351,7 +351,7 @@ function widgetScript(data) {
       detailValue.style.display = d.detailValue ? 'inline' : 'none';
       detailSuffix.style.display = d.detailSuffix ? 'inline' : 'none';
       detailValue.style.color = d.detailColor || (dark ? '#e5e7eb' : '#111827');
-      label.textContent = d.label || 'Context';
+      label.textContent = d.label || 'Usage';
       el.title = d.tooltip || '';
     };
 
@@ -378,9 +378,9 @@ function widgetScript(data) {
 
 export function startHeaderWidget({ getContext, getQuota, log = console } = {}) {
   if (typeof getContext !== 'function') return { stop() {} };
-  if (String(process.env.CONTEXT_METER_HEADER || '1').toLowerCase() === '0' ||
-      String(process.env.CONTEXT_METER_HEADER || '1').toLowerCase() === 'false') {
-    log.log('[context-meter] header widget disabled');
+  if (String(process.env.USAGE_METER_HEADER || '1').toLowerCase() === '0' ||
+      String(process.env.USAGE_METER_HEADER || '1').toLowerCase() === 'false') {
+    log.log('[usage-meter] header widget disabled');
     return { stop() {} };
   }
 
@@ -400,7 +400,7 @@ export function startHeaderWidget({ getContext, getQuota, log = console } = {}) 
     const now = Date.now();
     if (now - lastErrorAt > 30000) {
       lastErrorAt = now;
-      log.warn('[context-meter] header widget:', message, error?.message || error || '');
+      log.warn('[usage-meter] header widget:', message, error?.message || error || '');
     }
   }
 
@@ -564,7 +564,7 @@ export function startHeaderWidget({ getContext, getQuota, log = console } = {}) 
     timer = setTimeout(tick, POLL_INTERVAL_MS);
   }
 
-  log.log('[context-meter] header widget enabled');
+  log.log('[usage-meter] header widget enabled');
   timer = setTimeout(tick, 1800);
 
   return {

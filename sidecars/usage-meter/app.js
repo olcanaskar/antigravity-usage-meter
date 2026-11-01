@@ -483,7 +483,7 @@
     renderSparkline(history, color);
     renderUsage(payload.quota, payload.quotaError);
     hideState();
-    document.title = `${formatPercent(percent)} · Context Meter`;
+    document.title = `${formatPercent(percent)} · Usage Meter`;
   }
 
   function renderEmpty(payload) {

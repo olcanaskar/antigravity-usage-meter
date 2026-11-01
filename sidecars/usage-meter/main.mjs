@@ -1,5 +1,5 @@
 /**
- * Antigravity Context Meter — sidecar backend.
+ * Antigravity Usage Meter — sidecar backend.
  *
  * Antigravity's local language server records, for every model generation, a
  * `contextWindowMetadata` object with the estimated context-window usage and
@@ -179,7 +179,7 @@ function logError(error) {
   const now = Date.now();
   if (now - lastLoggedErrorAt > 30000) {
     lastLoggedErrorAt = now;
-    console.error('[context-meter]', error?.stack || error?.message || error);
+    console.error('[usage-meter]', error?.stack || error?.message || error);
   }
 }
 
@@ -576,7 +576,7 @@ app.api(
   '/healthz',
   () => ({
     ok: true,
-    service: 'context-meter',
+    service: 'usage-meter',
     version: '1.0.0',
     lsAddress: `${parseAddress().host}:${parseAddress().port}`,
     cachedConversations: entryCache.size,
@@ -586,7 +586,7 @@ app.api(
 
 const address = parseAddress();
 console.log(
-  `[context-meter] starting - language server ${address.host}:${address.port}, ` +
+  `[usage-meter] starting - language server ${address.host}:${address.port}, ` +
     `conversation ${process.env.ANTIGRAVITY_CONVERSATION_ID ? 'bound' : 'not bound'}`
 );
 
@@ -607,6 +607,6 @@ app.run()
     });
   })
   .catch((error) => {
-    console.error('[context-meter] failed to start:', error);
+    console.error('[usage-meter] failed to start:', error);
     process.exit(1);
   });

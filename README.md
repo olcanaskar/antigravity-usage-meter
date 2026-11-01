@@ -1,20 +1,20 @@
-# Context Meter
+# Usage Meter
 
-**Repository:** [github.com/olcanaskar/antigravity-context-meter](https://github.com/olcanaskar/antigravity-context-meter)
+**Repository:** [github.com/olcanaskar/antigravity-usage-meter](https://github.com/olcanaskar/antigravity-usage-meter)
 
 A plugin for Antigravity 2.x that shows the active conversation's context-window
 token usage and weekly usage limits both in the **chat header** and in the
 **side panel**. Values come from Antigravity's own language server; the plugin
 does not estimate chat length.
 
-![Context Meter badge with weekly usage](assets/header-chip.png)
+![Usage Meter badge with weekly usage](assets/header-chip.png)
 
 ## Chat header badge
 
 The badge sits at the top right of the chat header, immediately left of the ⋮
 menu:
 
-`● Context 17.0% · 7d 91.7% left`
+`● Usage 17.0% · 7d 91.7% left`
 
 - Refreshes every 4 seconds.
 - Follows the active conversation from the `/c/<conversationId>` URL; switches
@@ -26,8 +26,8 @@ menu:
   (`7d 91.7% left`); the tooltip and panel list every group and window.
 - Hover for the model, exact token counts, context percentage, and the full
   usage-limit breakdown.
-- Click the badge to open the Context Meter panel in the auxiliary pane; click
-  it again to close the pane. When opening, it focuses the Context Meter tab.
+- Click the badge to open the Usage Meter panel in the auxiliary pane; click
+  it again to close the pane. When opening, it focuses the Usage Meter tab.
 - Hidden on non-chat screens and in very narrow windows.
 
 > **Note:** Antigravity's official plugin API does not expose a chat-header
@@ -36,11 +36,11 @@ menu:
 > DevTools Protocol (CDP) endpoint. This is an unofficial, best-effort
 > integration: a major Antigravity UI update may change its position or make it
 > disappear. The panel keeps working. To disable the badge, set
-> `env.CONTEXT_METER_HEADER` to `"0"` in `sidecar.json` and restart the sidecar.
+> `env.USAGE_METER_HEADER` to `"0"` in `sidecar.json` and restart the sidecar.
 
 ## Panel
 
-![Context Meter panel](assets/screenshot.png)
+![Usage Meter panel](assets/screenshot.png)
 
 The panel also shows:
 
@@ -57,11 +57,11 @@ The panel also shows:
 The quickest way is to click the header badge (click it again to close the
 pane).
 
-1. **From chat:** Say "Open the Context Meter panel" or run `/context-meter`,
+1. **From chat:** Say "Open the Usage Meter panel" or run `/usage-meter`,
    then click the link:
-   [Context Meter](sidecar://context-meter/context-meter/)
+   [Usage Meter](sidecar://usage-meter/usage-meter/)
 2. **From the Extensions menu:** Antigravity top-right **⋮** → **Extensions** →
-   **Context Meter**.
+   **Usage Meter**.
 3. The panel opens in the auxiliary side pane. The header badge stays visible
    even when the panel is closed.
 
@@ -70,7 +70,7 @@ pane).
 Install the plugin at:
 
 ```text
-~/.gemini/config/plugins/context-meter/
+~/.gemini/config/plugins/usage-meter/
 ```
 
 Enable it by adding these entries to `~/.gemini/config/config.json`:
@@ -78,25 +78,25 @@ Enable it by adding these entries to `~/.gemini/config/config.json`:
 ```json
 {
   "plugins": {
-    "context-meter": { "enabled": true }
+    "usage-meter": { "enabled": true }
   },
   "sidecars": {
-    "context-meter/context-meter": { "enabled": true }
+    "usage-meter/usage-meter": { "enabled": true }
   }
 }
 ```
 
 To install on a new machine:
 
-1. Copy this folder to `~/.gemini/config/plugins/context-meter/`.
+1. Copy this folder to `~/.gemini/config/plugins/usage-meter/`.
 2. Add the two entries above to `config.json`.
 3. Restart Antigravity.
-4. Say "Open the Context Meter panel", use **⋮ → Extensions**, or check the
+4. Say "Open the Usage Meter panel", use **⋮ → Extensions**, or check the
    header badge.
 
 ## How it works
 
-- `plugin.json` defines the plugin; `sidecars/context-meter/sidecar.json`
+- `plugin.json` defines the plugin; `sidecars/usage-meter/sidecar.json`
   starts a **UI extension** (sidecar).
 - The sidecar connects to Antigravity's local language server using
   `ANTIGRAVITY_LS_ADDRESS` and `ANTIGRAVITY_CSRF_TOKEN`.
@@ -135,10 +135,10 @@ To install on a new machine:
 
 ## Uninstall
 
-1. Remove `plugins.context-meter` and
-   `sidecars["context-meter/context-meter"]` from
+1. Remove `plugins.usage-meter` and
+   `sidecars["usage-meter/usage-meter"]` from
    `~/.gemini/config/config.json`.
-2. Delete `~/.gemini/config/plugins/context-meter/`.
+2. Delete `~/.gemini/config/plugins/usage-meter/`.
 3. Restart Antigravity.
 
 ## Development
@@ -146,13 +146,13 @@ To install on a new machine:
 File layout:
 
 ```text
-context-meter/
+usage-meter/
 ├── plugin.json
 ├── assets/logo.svg
 ├── assets/header-chip.png
 ├── assets/screenshot.png
-├── skills/context-meter/SKILL.md
-└── sidecars/context-meter/
+├── skills/usage-meter/SKILL.md
+└── sidecars/usage-meter/
     ├── sidecar.json
     ├── main.mjs          # local API + language server client
     ├── header-widget.mjs # CDP header badge injection
@@ -169,7 +169,7 @@ $env:ANTIGRAVITY_CSRF_TOKEN='<csrf-token>'
 $env:ANTIGRAVITY_SIDECAR_WEB_PORT='5399'
 $env:ANTIGRAVITY_SIDECAR_UI_TOKEN='testtoken'
 $env:ANTIGRAVITY_CONVERSATION_ID='<conversation-id>'
-$env:CONTEXT_METER_HEADER='0'
+$env:USAGE_METER_HEADER='0'
 node main.mjs
 ```
 
